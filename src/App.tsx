@@ -13,6 +13,8 @@ function App(): JSX.Element {
   const videojsOptions: VREPlayer.IVideoJsOptions = {
     fluid: true,
   };
+  
+  //teste
 
   const functionTeste: any = (second?: number) => {
     let arr = [];
