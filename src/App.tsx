@@ -11,6 +11,8 @@ function App(): JSX.Element {
   const videojsOptions: VREPlayer.IVideoJsOptions = {
     fluid: true,
   };
+  
+  //teste
 
   return (
       <VREPlayer
