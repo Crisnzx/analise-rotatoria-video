@@ -1,25 +1,26 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import VREPlayer from 'videojs-react-enhanced';
+import 'video.js/dist/video-js.css';
 
-function App() {
+function App(): JSX.Element {
+  const playerOptions: VREPlayer.IPlayerOptions = {
+    src: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
+    controls: true,
+    autoplay: "play",
+  };
+  const videojsOptions: VREPlayer.IVideoJsOptions = {
+    fluid: true,
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      <VREPlayer
+          playerOptions={playerOptions}
+          videojsOptions={videojsOptions}
+          onReady={(player) => console.log(player)}
+          onPlay={(e, _, second) => console.log('Play!')}
+          onPause={(e, _, second) => console.log('Pause!')}
+          onEnded={(e, _) => console.log('Ended!')}
+      />
   );
 }
 
