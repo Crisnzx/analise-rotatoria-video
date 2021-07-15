@@ -1,10 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
+import videojs from 'video.js';
 import VREPlayer from 'videojs-react-enhanced';
 import 'video.js/dist/video-js.css';
-import { Cronometro } from '../src/componentes /cronometro';
 
 function App(): JSX.Element {
-  const [teste, setTeste] = useState<any>([]);
   const playerOptions: VREPlayer.IPlayerOptions = {
     src: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
     controls: true,
@@ -13,44 +12,42 @@ function App(): JSX.Element {
   const videojsOptions: VREPlayer.IVideoJsOptions = {
     fluid: true,
   };
-  
-  //teste
 
-  const functionTeste: any = (second?: number) => {
-    let arr = [];
-    console.log(second)
-    let obj = {
-      play: true,
-      secondstart: second,
-      secondstop: second,
-      pause: false,
-    }
-    arr.push(obj)
-    setTeste(arr)
-    //teste.push(obj)
+  function keyDownHandler(e) {
+    const currentTime = e.target.currentTime.toFixed(3);
+
+         if (e.code === 'KeyW') {
+            console.log('Via secundária -> na faixa de retenção');
+            console.log(currentTime);
+         } else if (e.code === 'KeyA') {
+            console.log('Veículo entra na faixa de circulação');
+            console.log(currentTime);
+
+         } else if (e.code === 'KeyM') {
+            console.log('Veículo da faixa de circulação passa por um ponto marcado no vídeo');
+            console.log(currentTime);
+
+         } else if (e.code === 'KeyX') {
+            console.log('Apaga evento anterior');
+            console.log(currentTime);
+
+         }
   }
 
-  console.log(teste)
-
   return (
-      <>
-        <VREPlayer
-            playerOptions={playerOptions}
-            videojsOptions={videojsOptions}
-            onReady={(player) => console.log(player)}
-            onPlay={(e, _, second) => functionTeste(second)}
-            onPause={(e, _, second) => console.log('Pause!')}
-            onEnded={(e, _) => console.log('Ended!')}
-        />
-        <div>
-          {teste.length > 0 ? (
-              <>
-                <h2>CRONOMETRO</h2>
-              </>
-          ) : null }
-        </div>
-      </>
+    // <VREPlayer
+    //   playerOptions={playerOptions}
+    //   videojsOptions={videojsOptions}
+    //   onTimeUpdate={(event, player, currentTimeSecond) => {
+    //     console.log(currentTimeSecond);
+    //   }}
+    // />
 
+    <video
+      onKeyDown={keyDownHandler}
+      controls 
+      src="https://archive.org/download/BigBuckBunny_124/Content/big_buck_bunny_720p_surround.mp4"
+    ></video>
   );
 }
 
